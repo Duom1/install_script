@@ -30,17 +30,8 @@ pacstrap /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # chroot
-clear
-read -p "user to add: " user_name
-
 arch-chroot /mnt bash -c "
-useradd -m -s /bin/bash -G wheel $user_name;
-passwd $user_name;
-clear;
-echo 'root password';
-passwd;
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers;
-clear;
 ln -sf /usr/share/zoneinfo/Europe/Helsinki /etc/localtime;
 whclock --systohc;
 sed -i 's/#en_US.UTF-8/en_US.UTF-8/g' /etc/locale.gen;
@@ -50,6 +41,18 @@ grub-install;
 grub-mkconfig -o /boot/grub/grub.cfg;
 echo 'ict_linux' >> /etc/hostname"
 
+# user and passwords
+clear
+read -p "user to add: " user_name
+
+arch-chroot /mnt bahs -c "
+useradd -m -s /bin/bash -G wheel $user_name;
+passwd $user_name;
+clear;
+echo 'root password';
+passwd"
+
+# services
 tmux new-session -d -s mysession "systemd-nspawn --boot --machine=ict_linux -D /mnt"
 systemctl --machine=machine_name enable gdm
 systemctl --machine=machine_name enable NetworkManager
