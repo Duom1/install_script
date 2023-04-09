@@ -33,8 +33,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 clear
 read -p "user to add: " user_name
 
-arch-chroot /mnt bash -c
-"
+arch-chroot /mnt bash -c "
 useradd -m -s /bin/bash -G wheel $user_name;
 passwd $user_name;
 clear;
@@ -48,8 +47,7 @@ sed -i 's/#en_US.UTF-8/en_US.UTF-8/g' /etc/locale.gen;
 locale-gen;
 pacman -S grub efibootmgr sudo networkmanager xorg gdm gnome;
 grub-install;
-grub-mkconfig -o /boot/grub/grub.cfg;
-"
+grub-mkconfig -o /boot/grub/grub.cfg"
 
 tmux new-session -d -s mysession "systemd-nspawn --boot --machine=machine_name -D /mnt"
 systemctl --machine=machine_name enable gdm
