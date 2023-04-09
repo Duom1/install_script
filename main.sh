@@ -53,7 +53,7 @@ echo 'root password';
 passwd"
 
 # services
-tmux new-session -d -s mysession "systemd-nspawn --boot --machine=ict_linux -D /mnt"
-systemctl --machine=machine_name enable gdm
-systemctl --machine=machine_name enable NetworkManager
-machinectl poweroff ict_linux
+tmux new-session -d -s mysession "systemd-nspawn --boot --machine=m -D /mnt"
+systemctl --machine=m enable gdm
+systemctl --machine=m enable NetworkManager
+machinectl poweroff m
