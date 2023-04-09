@@ -30,7 +30,7 @@ pacstrap /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # chroot
-arch-chroot /mnt -C
+arch-chroot /mnt bash -c
 "
 ln -sf /usr/share/zoneinfo/Europe/Helsinki /etc/localtime;
 whclock --systohc;
