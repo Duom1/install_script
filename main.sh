@@ -41,6 +41,7 @@ clear;
 echo "root password";
 passwd;
 sed -i "s/# %wheel ALL=\(ALL:ALL\) ALL/%wheel ALL=\(ALL:ALL\) ALL/g" /etc/sudoers;
+clear
 ln -sf /usr/share/zoneinfo/Europe/Helsinki /etc/localtime;
 whclock --systohc;
 sed -i "s/#en_US.UTF-8/en_US.UTF-8/g" /etc/locale.gen;
