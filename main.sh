@@ -1,6 +1,8 @@
 # partitioning, pacstrap and fstab
 clear
 lsblk
+echo
+echo "WARNING this will erase the entire disk"
 read -p "enter hard drive to be installed on: " device_name
 clear
 
@@ -32,13 +34,19 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # chroot
 arch-chroot /mnt bash -c "
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers;
+
 ln -sf /usr/share/zoneinfo/Europe/Helsinki /etc/localtime;
 whclock --systohc;
+
 sed -i 's/#en_US.UTF-8/en_US.UTF-8/g' /etc/locale.gen;
 locale-gen;
+
 pacman -S grub efibootmgr sudo networkmanager xorg gdm gnome --noconfirm;
 grub-install;
 grub-mkconfig -o /boot/grub/grub.cfg;
+
+sed -i 's/NAME=\"Arch Linux\"/NAME=\"ICT linux\"/g' /etc/os-release;
+sed -i 's/PRETTY_NAME=\"Arch Linux\"/PRETTY_NAME=\"ICT linux\"/g' /etc/os-release;
 echo 'ict_linux' >> /etc/hostname"
 
 # user and passwords
@@ -50,11 +58,17 @@ useradd -m -s /bin/bash -G wheel $user_name;
 passwd $user_name;
 clear;
 echo 'root password';
-passwd"
+passwd;
+clear"
 
 # services
 tmux new-session -d -s mysession "systemd-nspawn --boot --machine=m -D /mnt"
 sleep 1s
 systemctl --machine=m enable gdm
 systemctl --machine=m enable NetworkManager
+localectl --machine=m set-x11-keymap fi
+localectl --machine=m set-keymap fi
 machinectl poweroff m
+
+read -p "press enter to reboot" jarkko
+reboot
