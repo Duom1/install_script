@@ -31,10 +31,16 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 # chroot
 clear
-read -p "username: " user_name
+read -p "user to add: " user_name
 
 arch-chroot /mnt bash -c
 "
+useradd -m -s /bin/bash -G wheel $user_name;
+passwd $user_name;
+clear;
+echo "root password";
+passwd;
+sed -i "s/# %wheel ALL=\(ALL:ALL\) ALL/%wheel ALL=\(ALL:ALL\) ALL/g" /etc/sudoers;
 ln -sf /usr/share/zoneinfo/Europe/Helsinki /etc/localtime;
 whclock --systohc;
 sed -i "s/#en_US.UTF-8/en_US.UTF-8/g" /etc/locale.gen;
@@ -42,10 +48,6 @@ locale-gen;
 pacman -S grub efibootmgr sudo networkmanager xorg gdm gnome;
 grub-install;
 grub-mkconfig -o /boot/grub/grub.cfg;
-passwd;
-useradd -m -s /bin/bash -G wheel $user_name;
-passwd $user_name;
-sed -i "s/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g" /etc/sudoers;
 "
 
 tmux new-session -d -s mysession "systemd-nspawn --boot --machine=machine_name -D /mnt"
