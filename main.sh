@@ -54,6 +54,7 @@ passwd"
 
 # services
 tmux new-session -d -s mysession "systemd-nspawn --boot --machine=m -D /mnt"
+sleep 1s
 systemctl --machine=m enable gdm
 systemctl --machine=m enable NetworkManager
 machinectl poweroff m
