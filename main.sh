@@ -45,7 +45,7 @@ ln -sf /usr/share/zoneinfo/Europe/Helsinki /etc/localtime;
 whclock --systohc;
 sed -i 's/#en_US.UTF-8/en_US.UTF-8/g' /etc/locale.gen;
 locale-gen;
-pacman -S grub efibootmgr sudo networkmanager xorg gdm gnome;
+pacman -S grub efibootmgr sudo networkmanager xorg gdm gnome --noconfirm;
 grub-install;
 grub-mkconfig -o /boot/grub/grub.cfg"
 
