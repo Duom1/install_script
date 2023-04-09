@@ -47,9 +47,10 @@ sed -i 's/#en_US.UTF-8/en_US.UTF-8/g' /etc/locale.gen;
 locale-gen;
 pacman -S grub efibootmgr sudo networkmanager xorg gdm gnome --noconfirm;
 grub-install;
-grub-mkconfig -o /boot/grub/grub.cfg"
+grub-mkconfig -o /boot/grub/grub.cfg;
+echo 'ict_linux' >> /etc/hostname"
 
-tmux new-session -d -s mysession "systemd-nspawn --boot --machine=machine_name -D /mnt"
+tmux new-session -d -s mysession "systemd-nspawn --boot --machine=ict_linux -D /mnt"
 systemctl --machine=machine_name enable gdm
 systemctl --machine=machine_name enable NetworkManager
-machinectl poweroff machine_name
+machinectl poweroff ict_linux
