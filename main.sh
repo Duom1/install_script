@@ -45,7 +45,7 @@ echo 'ict_linux' >> /etc/hostname"
 clear
 read -p "user to add: " user_name
 
-arch-chroot /mnt bahs -c "
+arch-chroot /mnt bash -c "
 useradd -m -s /bin/bash -G wheel $user_name;
 passwd $user_name;
 clear;
