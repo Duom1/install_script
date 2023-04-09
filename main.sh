@@ -40,8 +40,8 @@ passwd $user_name;
 clear;
 echo "root password";
 passwd;
-echo "%wheel ALL=\(ALL:ALL\) ALL" >> /etc/sudoers;
-clear
+sed -i 's/# %wheel ALL=\(ALL:ALL\) ALL/%wheel ALL=\(ALL:ALL\) ALL/g' /etc/locale.gen;
+clear;
 ln -sf /usr/share/zoneinfo/Europe/Helsinki /etc/localtime;
 whclock --systohc;
 sed -i "s/#en_US.UTF-8/en_US.UTF-8/g" /etc/locale.gen;
