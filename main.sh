@@ -40,7 +40,7 @@ passwd $user_name;
 clear;
 echo "root password";
 passwd;
-echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers;
+echo "%wheel ALL=\(ALL:ALL\) ALL" >> /etc/sudoers;
 clear
 ln -sf /usr/share/zoneinfo/Europe/Helsinki /etc/localtime;
 whclock --systohc;
