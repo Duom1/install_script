@@ -37,7 +37,7 @@ arch-chroot /mnt bash -c "
 useradd -m -s /bin/bash -G wheel $user_name;
 passwd $user_name;
 clear;
-echo "root password";
+echo 'root password';
 passwd;
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers;
 clear;
