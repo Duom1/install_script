@@ -43,7 +43,7 @@ whclock --systohc;
 sed -i 's/#en_US.UTF-8/en_US.UTF-8/g' /etc/locale.gen;
 locale-gen;
 
-pacman -S grub efibootmgr sudo networkmanager xorg gdm gnome --noconfirm;
+pacman -S grub efibootmgr sudo networkmanager xorg gdm gnome virtualbox libreoffice-freash firefox --noconfirm;
 grub-install;
 grub-mkconfig -o /boot/grub/grub.cfg"
 
@@ -61,14 +61,14 @@ clear"
 
 # services
 tmux new-session -d -s mysession "systemd-nspawn --boot --machine=m -D /mnt"
-sleep 1s
+sleep 5s
 systemctl --machine=m enable gdm
 systemctl --machine=m enable NetworkManager
 localectl --machine=m set-x11-keymap fi
 localectl --machine=m set-keymap fi
 machinectl poweroff m
 
-clear
+echo
 echo "install done"
 read -p "press enter to reboot" jarkko
 reboot
