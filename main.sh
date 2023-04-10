@@ -33,8 +33,6 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 # chroot
 arch-chroot /mnt bash -c "
-sed -i 's/NAME=\"Arch Linux\"/NAME=\"ICT linux\"/g' /etc/os-release;
-sed -i 's/PRETTY_NAME=\"Arch Linux\"/PRETTY_NAME=\"ICT linux\"/g' /etc/os-release;
 echo 'ict-linux' >> /etc/hostname;
 
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers;
