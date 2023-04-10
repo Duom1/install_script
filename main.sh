@@ -68,5 +68,7 @@ localectl --machine=m set-x11-keymap fi
 localectl --machine=m set-keymap fi
 machinectl poweroff m
 
+clear
+echo "install done"
 read -p "press enter to reboot" jarkko
 reboot
